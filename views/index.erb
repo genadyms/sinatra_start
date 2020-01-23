@@ -1,7 +1,9 @@
 <h1>Hello, World!</h1>
 <h3>Your login is: <%= @login %></h3> 
+<h3>Your password is: <%= @password %></h3>
+<p><%= @message %> 
 <form action="/" method="POST">
     <input type="text" name="login"/>
-    <input type="password" name="pass"/>
+    <input type="password" name="password"/>
     <input type="submit"/>
 </form>
