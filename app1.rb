@@ -15,8 +15,13 @@ post '/' do
   @message = "Dear #{@name}, we'll be waiting for you at #{@date_time}"
 
   f = File.open 'users.txt', 'a'
-  f.write "User: #{@name}, Phone: #{@phone}, Date and time: #{@date_time}"
+  f.write "User: #{@name}, Phone: #{@phone}, Date and time: #{@date_time} \r\n"
   f.close
 
   erb :message
+end
+
+get '/admin' do
+  @file_info = File.open('users.txt', 'r')
+  erb :admin
 end
