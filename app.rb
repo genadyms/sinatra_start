@@ -2,6 +2,7 @@
 
 require 'rubygems'
 require 'sinatra'
+require 'sinatra/reloader'
 
 configure do
   enable :sessions
@@ -46,4 +47,8 @@ end
 
 get '/secure/place' do
   erb 'This is a secret place that only <%=session[:identity]%> has access to!'
+end
+
+get '/about' do
+  erb :about
 end
