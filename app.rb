@@ -62,10 +62,11 @@ post '/visit' do
   @user_phone = params[:user_phone]
   @date_time = params[:date_time]
   @master = params[:master]
+  @color = params[:color]
   f = File.open './public/users.txt', 'a'
   f.write "User: #{@user_name}, Phone: #{@user_phone}, Date and time: #{@date_time}, Master: #{@master} \r\n"
   f.close
-  erb "#{@user_name}==#{@user_phone}==#{@date_time}==#{@master}"
+  erb "#{@user_name}==#{@user_phone}==#{@date_time}==#{@master}==#{@color}"
 end
 
 get '/contacts' do
