@@ -1,0 +1,26 @@
+<h1>Записаться</h1>
+<p>На этой странице вы можете записаться к нам в мастерскую.</p>
+<form action="/visit" method="POST">
+  <div class="form-group">
+    <label for="exampleInputEmail1">Ваше имя:</label>
+    <input type="text" class="form-control" name="user_name" placeholder="Введите имя">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Введите телефон:</label>
+    <input type="text" class="form-control" name="user_phone" placeholder="Введите телефон">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Введите дату и время:</label>
+    <input type="text" class="form-control" name="date_time" placeholder="Введите дату и время">
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">Выберите мастера/label>
+    <select class="form-control" name="master">
+      <option>Вася суппорта</option>
+      <option>Алексей электрик</option>
+      <option>Саша директор</option>
+      <option>Дима подвеска</option>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Записаться</button>
+</form>

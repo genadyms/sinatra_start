@@ -31,8 +31,8 @@ get '/login/form' do
 end
 
 post '/login/attempt' do
-  user_name = params['username']
-  user_password = params['userpassword']
+  user_name = params['user_name']
+  user_password = params['user_password']
   if user_name == 'admin' && user_password == 'secret'
     session[:identity] = user_name
   end
@@ -51,4 +51,34 @@ end
 
 get '/about' do
   erb :about
+end
+
+get '/visit' do
+  erb :visit
+end
+
+post '/visit' do
+  @user_name = params[:user_name]
+  @user_phone = params[:user_phone]
+  @date_time = params[:date_time]
+  @master = params[:master]
+  f = File.open './public/users.txt', 'a'
+  f.write "User: #{@user_name}, Phone: #{@user_phone}, Date and time: #{@date_time}, Master: #{@master} \r\n"
+  f.close
+  erb "#{@user_name}==#{@user_phone}==#{@date_time}==#{@master}"
+end
+
+get '/contacts' do
+  erb :contacts
+end
+
+post '/contacts' do
+  @user_email = params[:user_email]
+  @user_info = params[:user_info]
+  f = File.open './public/contacts.txt', 'a'
+  f.write "Email: #{@user_email} \r\n"
+  f.write "Info: #{@user_info} \r\n"
+  f.write "\r\n\r\n"
+  f.close
+  erb "#{@user_email}<br/>#{@user_info}"
 end
