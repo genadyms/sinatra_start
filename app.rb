@@ -63,15 +63,13 @@ post '/visit' do
   @date_time = params[:date_time]
   @master = params[:master]
   @color = params[:color]
+  
   hh = { user_name: 'Введите имя',
          user_phone: 'Введите телефон',
          date_time: 'Введите дату и время' }
-  hh.each do |key, _value|
-    if params[key] == ''
-      @error = hh[key]
-      return erb :visit
-    end
-  end
+  @error = hh.select { |key, _value| params[key] == '' }.values.join(', ')
+  return erb :visit if @error != ''
+
   f = File.open './public/users.txt', 'a'
   f.write "User: #{@user_name}, Phone: #{@user_phone}, Date and time: #{@date_time}, Master: #{@master} \r\n"
   f.close
