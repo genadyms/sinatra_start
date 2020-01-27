@@ -58,6 +58,15 @@ get '/visit' do
 end
 
 post '/visit' do
+  hh = { user_name: 'Введите имя',
+         user_phone: 'Введите телефон',
+         date_time: 'Введите дату и время' }
+  hh.each do |key, _value|
+    if params[key] == ''
+      @error = hh[key]
+      return erb :visit
+    end
+  end
   @user_name = params[:user_name]
   @user_phone = params[:user_phone]
   @date_time = params[:date_time]
