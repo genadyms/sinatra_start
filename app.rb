@@ -58,6 +58,11 @@ get '/visit' do
 end
 
 post '/visit' do
+  @user_name = params[:user_name]
+  @user_phone = params[:user_phone]
+  @date_time = params[:date_time]
+  @master = params[:master]
+  @color = params[:color]
   hh = { user_name: 'Введите имя',
          user_phone: 'Введите телефон',
          date_time: 'Введите дату и время' }
@@ -67,11 +72,6 @@ post '/visit' do
       return erb :visit
     end
   end
-  @user_name = params[:user_name]
-  @user_phone = params[:user_phone]
-  @date_time = params[:date_time]
-  @master = params[:master]
-  @color = params[:color]
   f = File.open './public/users.txt', 'a'
   f.write "User: #{@user_name}, Phone: #{@user_phone}, Date and time: #{@date_time}, Master: #{@master} \r\n"
   f.close
