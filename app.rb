@@ -5,10 +5,15 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'sqlite3'
 
+
+def get_db
+  return SQLite3::Database.new 'carretailshop.db'
+end
+
 configure do
   enable :sessions
-  @db = SQLite3::Database.new 'carretailshop.db'
-  @db.execute 'CREATE TABLE IF NOT EXISTS "users"
+  db = get_db
+  db.execute 'CREATE TABLE IF NOT EXISTS "users"
   (
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "name" TEXT,
@@ -16,7 +21,7 @@ configure do
     "datestamp" TEXT,
     "master" TEXT,
     "color" TEXT
-  )'
+  );'
 end
 
 helpers do
@@ -81,9 +86,9 @@ post '/visit' do
   @error = hh.select { |key, _value| params[key] == '' }.values.join(', ')
   return erb :visit if @error != ''
 
-  f = File.open './public/users.txt', 'a'
-  f.write "User: #{@user_name}, Phone: #{@user_phone}, Date and time: #{@date_time}, Master: #{@master} \r\n"
-  f.close
+  db = get_db
+  db.execute 'INSERT INTO users (name, phone, datestamp, master, color) VALUES (?, ?, ?, ?, ?)',
+             [@user_name, @user_phone, @date_time, @master, @color]
   erb "#{@user_name}==#{@user_phone}==#{@date_time}==#{@master}==#{@color}"
 end
 
@@ -101,3 +106,4 @@ post '/contacts' do
   f.close
   erb "#{@user_email}<br/>#{@user_info}"
 end
+
