@@ -3,9 +3,20 @@
 require 'rubygems'
 require 'sinatra'
 require 'sinatra/reloader'
+require 'sqlite3'
 
 configure do
   enable :sessions
+  @db = SQLite3::Database.new 'carretailshop.db'
+  @db.execute 'CREATE TABLE IF NOT EXISTS "users"
+  (
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "name" TEXT,
+    "phone" TEXT,
+    "datestamp" TEXT,
+    "master" TEXT,
+    "color" TEXT
+  )'
 end
 
 helpers do
@@ -63,7 +74,7 @@ post '/visit' do
   @date_time = params[:date_time]
   @master = params[:master]
   @color = params[:color]
-  
+
   hh = { user_name: 'Введите имя',
          user_phone: 'Введите телефон',
          date_time: 'Введите дату и время' }
