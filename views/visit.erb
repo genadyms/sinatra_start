@@ -14,7 +14,7 @@
     <input type="text" class="form-control" name="date_time" placeholder="Введите дату и время">
   </div>
   <div class="form-group">
-    <label for="exampleFormControlSelect1">Выберите мастера/label>
+    <label for="exampleFormControlSelect1">Выберите мастера</label>
     <select class="form-control" name="master">
       <option>Вася суппорта</option>
       <option>Алексей электрик</option>
@@ -43,5 +43,7 @@
   <button type="submit" class="btn btn-primary">Записаться</button>
 </form>
 <script type="text/javascript">
-$('select[name="color"]').simplecolorpicker();
+$(function() {
+  $('select[name="color"]').simplecolorpicker();
+});
 </script>
