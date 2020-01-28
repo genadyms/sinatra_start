@@ -5,7 +5,6 @@ require 'sinatra'
 require 'sinatra/reloader'
 require 'sqlite3'
 
-
 def get_db
   return SQLite3::Database.new 'carretailshop.db'
 end
@@ -13,8 +12,7 @@ end
 configure do
   enable :sessions
   db = get_db
-  db.execute 'CREATE TABLE IF NOT EXISTS "users"
-  (
+  db.execute 'CREATE TABLE IF NOT EXISTS "users" (
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "name" TEXT,
     "phone" TEXT,
@@ -22,6 +20,16 @@ configure do
     "master" TEXT,
     "color" TEXT
   );'
+  db.execute 'CREATE TABLE IF NOT EXISTS "masters"
+  (
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "name" TEXT
+  );'
+  count_masters = db.execute 'SELECT * FROM masters;'
+  if count_masters.empty?
+    masters = ['Вася суппорта', 'Алексей электрик', 'Саша директор', 'Дима подвеска']
+    masters.each { |name| db.execute 'INSERT INTO masters (name) VALUES (?)', [name] }
+  end
 end
 
 helpers do
@@ -70,6 +78,9 @@ get '/about' do
 end
 
 get '/visit' do
+  db = get_db
+  @masters = db.execute 'SELECT * FROM masters'
+  puts @masters
   erb :visit
 end
 
@@ -107,3 +118,8 @@ post '/contacts' do
   erb "#{@user_email}<br/>#{@user_info}"
 end
 
+get '/showusers' do
+  db = get_db
+  @result_set_users = db.execute 'SELECT name, phone, datestamp, master, color FROM users ORDER BY id DESC'
+  erb :showusers
+end

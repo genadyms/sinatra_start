@@ -16,10 +16,9 @@
   <div class="form-group">
     <label for="exampleFormControlSelect1">Выберите мастера</label>
     <select class="form-control" name="master">
-      <option>Вася суппорта</option>
-      <option>Алексей электрик</option>
-      <option>Саша директор</option>
-      <option>Дима подвеска</option>
+      <% @masters.each do |master| %>
+        <option><%= master[1] %></option>
+      <% end %>
     </select>
   </div>
   <div class="form-group">
