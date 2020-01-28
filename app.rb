@@ -110,7 +110,7 @@ post '/visit' do
   db = get_db
   db.execute 'INSERT INTO users (name, phone, datestamp, master, color) VALUES (?, ?, ?, ?, ?)',
              [@user_name, @user_phone, @date_time, @master, @color]
-  erb "#{@user_name}==#{@user_phone}==#{@date_time}==#{@master}==#{@color}"
+  erb "<h2>Спасибо #{@user_name}. Вы записались. Будем ждать Вас #{@date_time}.</h2>"
 end
 
 get '/contacts' do
