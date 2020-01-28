@@ -82,7 +82,6 @@ end
 get '/visit' do
   db = get_db
   @masters = db.execute 'SELECT * FROM masters'
-  puts @masters
   erb :visit
 end
 
@@ -123,6 +122,5 @@ end
 get '/showusers' do
   db = get_db
   @result_set_users = db.execute 'SELECT name, phone, datestamp, master, color FROM users ORDER BY id DESC'
-  puts @result_set_users[0]['name']
   erb :showusers
 end

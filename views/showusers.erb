@@ -1,5 +1,13 @@
 <h3>Количество записавшихся - <%= @result_set_users.size %></h3>
-<table class="table">
+<table class="table table-striped">
+    <thead>
+        <th>Имя</th>
+        <th>Телефон</th>
+        <th>Дата и время</th>
+        <th>Мастер</th>
+        <th>Цвет</th> 
+    </thead>
+    <tbody>
     <% @result_set_users.each do | result | %>
         <tr>
             <td><%= result['name'] %></td>
@@ -9,4 +17,5 @@
             <td><%= result['color'] %></td> 
         </tr>
     <% end %>
+    </tbody>
 </table>
