@@ -8,7 +8,19 @@ require 'sqlite3'
 def get_db
   db = SQLite3::Database.new 'carretailshop.db'
   db.results_as_hash = true
-  return db
+  db
+end
+
+def db_contains_master? db, master
+  db.execute('SELECT * FROM masters WHERE name=?', [master]).length > 0
+end
+
+def add_in_db_masters db, masters
+  masters.each do |master|
+    unless db_contains_master? db, master
+      db.execute 'INSERT INTO masters (name) VALUES (?)', [master]
+    end
+  end
 end
 
 configure do
@@ -27,11 +39,8 @@ configure do
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "name" TEXT
   );'
-  count_masters = db.execute 'SELECT * FROM masters;'
-  if count_masters.empty?
-    masters = ['Вася суппорта', 'Алексей электрик', 'Саша директор', 'Дима подвеска']
-    masters.each { |name| db.execute 'INSERT INTO masters (name) VALUES (?)', [name] }
-  end
+
+  add_in_db_masters db, ['Вася суппорта', 'Алексей электрик', 'Саша директор', 'Дима подвеска', 'Джон покраска']
 end
 
 helpers do
