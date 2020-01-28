@@ -17,7 +17,7 @@
     <label for="exampleFormControlSelect1">Выберите мастера</label>
     <select class="form-control" name="master">
       <% @masters.each do |master| %>
-        <option><%= master[1] %></option>
+        <option><%= master['name'] %></option>
       <% end %>
     </select>
   </div>

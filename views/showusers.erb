@@ -1,4 +1,12 @@
 <h3>Количество записавшихся - <%= @result_set_users.size %></h3>
-<% @result_set_users.each do | result | %>
-<p>Имя: <%= result[0] %>, телефон: <%= result[1] %>, двтв и время: <%= result[2] %> , мастер: <%= result[3] %>, цвет машины: <%= result[4] %></p> 
-<% end %>
+<table class="table">
+    <% @result_set_users.each do | result | %>
+        <tr>
+            <td><%= result['name'] %></td>
+            <td><%= result['phone'] %></td>
+            <td><%= result['datestamp'] %></td>
+            <td><%= result['master'] %></td>
+            <td><%= result['color'] %></td> 
+        </tr>
+    <% end %>
+</table>
